@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import custom font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
+
+/* RESET + GLOBAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #fafff9;
+  --secondary-color: rgba(0, 0, 0, 0.98);
+  --tertiary-color: #62e847;
+  --other-color: #0d0d0d;
+  --primary-font-family: 'Montserrat', sans-serif;
+  --spacing-unit: 1rem;
+  --border-radius: 8px;
+  --background-image: url("data:image/svg+xml,%3Csvg ... (your full image stays)%3C/svg%3E");
+}
+
+/* Body styles - LIGHT MODE DEFAULT */
+body {
+  background-color: var(--primary-color);
+  background-image: var(--background-image);
+  color: #111; /* Safe dark text */
+  font-family: var(--primary-font-family);
+  transition: all 0.3s ease;
+}
+
+/* Dark mode override using Tailwind’s 'dark' class */
+body.dark {
+  background-color: #051504;
+  color: var(--primary-color);
+}
+
+/* Font utility */
+.montserrat-large {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Custom button style */
+.button-primary {
+  background-color: var(--tertiary-color);
+  color: black;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease;
+}
+.button-primary:hover {
+  background-color: #3eff12;
+  transform: scale(1.05);
+  cursor: pointer;
+}
