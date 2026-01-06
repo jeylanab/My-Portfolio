@@ -1,62 +1,55 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
-import preview from "../../Assets/25.jpg"; // One shared image for all
+import preview from "../../Assets/25.jpg"; // fallback image
+import hpl from "../../Assets/hpl.png";
+import hroofly from "../../Assets/hroofly.png";
+import hsash from "../../Assets/hsash.png";
+import hjoe from "../../Assets/hjoe.png";
 
 export const projects = [
   {
     id: 1,
     category: "Full Stack (MERN)",
-    title: "Taily Pet Lovers",
+    title: "HPL Particle Estimator",
     description:
-      "A social and service platform connecting pet owners, vets, and adoption centers. Includes pet profiles, community posts, and a service marketplace.",
-    techStack: "React, Node.js, Express, MongoDB, Tailwind, JWT Auth",
-    gif: preview,
-    liveLink: "#",
+      "A dynamic web app for estimating HPL particle installation projects. Users can input project details and instantly get accurate cost breakdowns. Perfect for contractors and clients to plan budgets efficiently.",
+    techStack: "React, Node.js, Express, MongoDB, Tailwind, Framer Motion",
+    gif: hpl,
+    liveLink: "https://custom-quote-alpha.vercel.app/", // Replace with live demo
     githubLink: "#",
   },
   {
     id: 2,
-    category: "Full Stack (MERN)",
-    title: "Roofly",
+    category: "Frontend Tool",
+    title: "HSash Window Refurbisher",
     description:
-      "A real estate platform for renting and selling properties with advanced filtering, API data fetching, and clean UI built using modern React patterns.",
-    techStack: "React, Node.js, MongoDB, Express, Tailwind",
-    gif: preview,
-    liveLink: "#",
+      "A user-friendly estimator for window refurbishment projects. Calculates labor, material, and overall cost dynamically, giving both professionals and homeowners instant, reliable quotes.",
+    techStack: "React, Tailwind, Framer Motion",
+    gif: hsash,
+    liveLink: "https://sash-refurbish-quote.vercel.app/", // Replace with live demo
     githubLink: "#",
   },
   {
     id: 3,
     category: "Full Stack (MERN)",
-    title: "JoeVibe",
+    title: "JoeVibe eCommerce",
     description:
-      "An eCommerce web app featuring JWT-based authentication, role-based access, and an elegant product catalog with dynamic filtering and CRUD operations.",
-    techStack: "React, Node.js, Express, MongoDB, Tailwind, JWT",
-    gif: preview,
-    liveLink: "#",
-    githubLink: "#",
-  },
-  {
-    id: 4,
-    category: "Frontend Tool",
-    title: "Price Estimator",
-    description:
-      "A responsive calculator app that helps businesses estimate service costs dynamically, with instant UI feedback and data validation.",
-    techStack: "React, Tailwind, Framer Motion",
-    gif: preview,
-    liveLink: "#",
+      "A sleek eCommerce platform featuring JWT-based authentication, role-based access, and a fully interactive product catalog. Designed for smooth shopping experiences and easy product management.",
+    techStack: "React, Node.js, Express, MongoDB, Tailwind, JWT Auth",
+    gif: hjoe,
+    liveLink: "https://joevibe.vercel.app/", // Replace with live demo
     githubLink: "#",
   },
   {
     id: 5,
     category: "Frontend Tool",
-    title: "Fence Estimator",
+    title: "Taily Pet Lovers",
     description:
-      "A modern UI estimator that allows users to calculate fencing costs based on area, material, and labor. Designed for speed and simplicity.",
-    techStack: "React, Tailwind, Vite",
-    gif: preview,
-    liveLink: "#",
+      "A community platform for pet owners, vets, and adoption centers. Includes pet profiles, posts, and a service marketplace, connecting users with the right services and pet care advice.",
+    techStack: "React, Node.js, Express, MongoDB, Tailwind, JWT Auth",
+    gif: hroofly,
+    liveLink: "https://taily-pets.vercel.app/", // Replace with live demo
     githubLink: "#",
   },
 ];
