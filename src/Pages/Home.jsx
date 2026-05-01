@@ -1,18 +1,23 @@
-import React from 'react'
-import { Hero } from '../Components/Hero/Hero'
-import Stats from '../Components/Stats/Stats'
-import ProjectList from '../Components/Project/ProjectList'
-import AboutMe from './AboutMe'
+import Hero from "../Components/Hero/Hero";
+import About from "../Components/Experiences/Experiences";
+import Skills from "../Components/Skills/Skills";
+import Projects from "../Components/Project/Projects";
+import Achievements from "../Components/Achievements/Achievements";
+import Stats from "../Components/Stats/Stats";
+import Contact from "../Components/Contact/Contact";
 
-export const Home = () => {
+const Home = () => {
   return (
-      <div className=' mx-auto  lg:mx-14'>
+    <main>
       <Hero />
       <Stats />
-      <ProjectList />
-      <AboutMe />
-      
-      
-      </div>
-  )
-}
+      <About />
+      <Skills />
+      <Projects />
+      <Achievements />
+      <Contact />
+    </main>
+  );
+};
+
+export default Home;

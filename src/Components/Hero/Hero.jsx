@@ -1,149 +1,334 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { FaLinkedinIn, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
-import profile from "../../Assets/pic.png";
-import cv from "../../Assets/template.pdf";
+import { TypeAnimation } from "react-type-animation";
+import { personalInfo } from "../../constants/index";
+import { Download, ArrowRight, Github, Linkedin, Twitter, Zap, Rocket } from "lucide-react";
+import { useTheme } from "../../Utils/ThemeContext";
+import pp from "../../asset/ppp.png";
 
-/* ---------------- Animations ---------------- */
-const container = {
+// Animated floating particles
+const FloatingOrbs = () => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    {[...Array(6)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute rounded-full"
+        style={{
+          width: `${80 + i * 40}px`,
+          height: `${80 + i * 40}px`,
+          left: `${10 + i * 15}%`,
+          top: `${20 + (i % 3) * 25}%`,
+          background: `radial-gradient(circle, rgba(0,255,136,${0.06 - i * 0.008}) 0%, transparent 70%)`,
+          filter: "blur(20px)",
+        }}
+        animate={{
+          y: [0, -30, 0],
+          x: [0, i % 2 === 0 ? 20 : -20, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 6 + i * 1.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: i * 0.8,
+        }}
+      />
+    ))}
+  </div>
+);
+
+// Grid lines animated
+const GridLines = () => (
+  <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" />
+);
+
+// Glowing center radial
+const HeroGlow = () => (
+  <div
+    className="absolute inset-0 pointer-events-none"
+    style={{
+      background:
+        "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,255,136,0.08) 0%, transparent 70%)",
+    }}
+  />
+);
+
+// Social icons row configuration
+const socialLinks = [
+  { href: personalInfo.socialLinks.github, Icon: Github, label: "GitHub" },
+  { href: personalInfo.socialLinks.linkedin, Icon: Linkedin, label: "LinkedIn" },
+  { href: personalInfo.socialLinks.twitter, Icon: Twitter, label: "Twitter" },
+];
+
+const containerVariants = {
   hidden: { opacity: 0 },
-  show: {
+  visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
   },
 };
 
-const fadeUp = {
+const itemVariants = {
   hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
-const hero = {
-  name: "Jeylan Abdo",
-  role: "Frontend Developer // UI Designer",
-  tagline: "I build fast, clean, and scalable web applications with a strong focus on performance, usability, and maintainable code.",
-  badge: "Vanilla • React • UI/UX",
-  socials: [
-    { icon: FaInstagram, url: "#" },
-    { icon: FaLinkedinIn, url: "https://www.linkedin.com/in/jeylan-tesi-53a746257/" },
-    { icon: FaGithub, url: "https://github.com/jeylanab/" },
-    { icon: FaTwitter, url: "https://x.com/jetu81" },
-  ],
-};
-
-export const Hero = () => {
+// --- START: New Animated Profile Picture Component ---
+const AnimatedProfilePicture = ({ isDark }) => {
   return (
-    <motion.section
-      variants={container}
-      initial="hidden"
-      animate="show"
-      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden px-6 py-12"
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+      transition={{ duration: 0.8, delay: 0.5, type: "spring" }}
+      whileHover={{ scale: 1.05 }} // Interactive scale on hover
+      className="flex-shrink-0 relative cursor-pointer"
     >
-      {/* Background Decorative Blurs - Larger for more space usage */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-green-100/30 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-100/20 blur-[120px] rounded-full" />
+      {/* 1. Main dynamic outer glowing pulse (highly visible) */}
+      <motion.div
+        className="absolute inset-0 rounded-2xl pointer-events-none"
+        animate={{
+          boxShadow: [
+            "0 0 0 2px rgba(0,255,136,0.2), 0 0 40px rgba(0,255,136,0.1), 0 0 80px rgba(0,255,136,0.05)", // Base pulse
+            "0 0 0 4px rgba(0,255,136,0.4), 0 0 60px rgba(0,255,136,0.3), 0 0 120px rgba(0,255,136,0.2)", // Maximum pulse
+            "0 0 0 2px rgba(0,255,136,0.2), 0 0 40px rgba(0,255,136,0.1), 0 0 80px rgba(0,255,136,0.05)", // Return to base
+          ],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.5,
+        }}
+      />
 
-      <div className="relative z-10 w-full max-w-7xl flex flex-col items-center">
-        
-        {/* -------- UPPER CONTENT: IMAGE & BADGES -------- */}
-        <div className="relative w-full flex justify-center items-center mb-16">
-          
-          {/* Vertical Socials - Left Side */}
-          <motion.div 
-            variants={fadeUp}
-            className="absolute left-0 lg:left-10 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-10"
-          >
-            {hero.socials.map(({ icon: Icon, url }, i) => (
-              <a key={i} href={url} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-green-500 transition-colors duration-300">
-                <Icon size={22} />
-              </a>
-            ))}
-          </motion.div>
+      {/* 2. Interactive hover glow intensifying */}
+      <motion.div
+        className="absolute -inset-2 rounded-2xl pointer-events-none opacity-0 hover:opacity-100 transition-opacity duration-300"
+        style={{
+          boxShadow: "0 0 50px rgba(0,255,136,0.6), 0 0 100px rgba(0,255,136,0.4)",
+        }}
+      />
 
-          {/* Main Portrait Container */}
-          <motion.div variants={fadeUp} className="relative group">
-            {/* Arched Backdrop */}
-            <div className="absolute inset-0 bg-slate-200 dark:bg-slate-800 rounded-t-full -z-10 translate-y-6 scale-[1.05]" />
-            
-            {/* Image with Blurry Bottom Mask */}
-            <div className="relative overflow-hidden rounded-t-full" style={{ 
-              maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
-            }}>
-              <img
-                src={profile}
-                alt={hero.name}
-                className="w-[280px] md:w-[420px] grayscale hover:grayscale-0 transition-all duration-1000 object-cover"
-              />
-            </div>
+      {/* 3. Main container with background and refined border */}
+      <div
+        className="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden border border-primary/30"
+        style={{
+          background: isDark
+            ? "linear-gradient(135deg, #0f0f1a 0%, #141420 100%)"
+            : "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
+        }}
+      >
+        {/* Animated border gradient (enhanced visibility) */}
+        <motion.div
+          className="absolute -inset-1 rounded-2xl pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(0,255,136,0.8), transparent, rgba(0,255,136,0.6), transparent)",
+            backgroundSize: "300% 300%",
+          }}
+          animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+        />
 
-            {/* Come On Let's Talk - Right Side */}
-            <div className="absolute -top-6 -right-12 md:-right-20 w-32 h-32 md:w-44 md:h-44 hidden sm:block">
-               <svg viewBox="0 0 100 100" className="w-full h-full animate-spin-slow">
-                  <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" />
-                  <text className="text-[8px] uppercase font-bold fill-slate-400 tracking-[1.5px]">
-                     <textPath xlinkHref="#circlePath">COME ON LET'S TALK • COME ON LET'S TALK • </textPath>
-                  </text>
-               </svg>
-            </div>
-
-            {/* The Green Squiggle Overlay */}
-            <svg className="absolute -inset-12 w-[calc(100%+96px)] h-[calc(100%+96px)] pointer-events-none opacity-50" viewBox="0 0 400 500">
-               <motion.path
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 3, ease: "easeInOut" }}
-                d="M70,400 C100,450 350,400 370,180 C390,50 150,20 80,150"
-                fill="transparent"
-                stroke="#4ade80"
-                strokeWidth="1"
-                strokeLinecap="round"
-               />
-            </svg>
-          </motion.div>
+        {/* 4. The portrait image - clean and high-visibility */}
+        <div className="relative w-full h-full flex flex-col items-center justify-center">
+          <img src={pp} alt="Profile" className="object-cover w-full h-full" />
         </div>
-
-        {/* -------- LOWER CONTENT: TEXT & ACTIONS -------- */}
-        <motion.div variants={fadeUp} className="text-center space-y-6 w-full max-w-4xl">
-          <h1 className="text-6xl md:text-9xl font-black text-slate-900 dark:text-white tracking-tighter uppercase leading-none">
-            {hero.name}
-          </h1>
-          
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
-            <p className="text-sm md:text-base font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">
-              {hero.role}
-            </p>
-            <div className="hidden md:block w-12 h-[1px] bg-slate-300" />
-            <p className="text-slate-500 dark:text-slate-400 max-w-sm text-sm italic">
-              {hero.tagline}
-            </p>
-          </div>
-
-          <div className="pt-10 flex flex-wrap items-center justify-center gap-8">
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-12 py-4 bg-black dark:bg-white text-white dark:text-black text-xs font-bold uppercase tracking-widest rounded-full shadow-2xl transition-all"
-            >
-              Explore Projects
-            </motion.a>
-            
-            <a href={cv} download className="group flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white">
-              Download CV 
-              <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all">↓</span>
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Tech Badge - Fixed at bottom */}
-        <motion.div variants={fadeUp} className="mt-16 px-6 py-2 border border-slate-200 dark:border-slate-800 rounded-full bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
-           <span className="text-[10px] md:text-xs font-bold text-slate-600 dark:text-slate-400 tracking-[0.2em] uppercase">
-            {hero.badge}
-           </span>
-        </motion.div>
-
       </div>
-    </motion.section>
+
+      {/* 5. Refined floating badge: experience (Updated to use Lucide React Zap icon) */}
+      <motion.div
+        animate={{ y: [0, -12, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+        className="absolute -bottom-4 -left-6 glass-card px-3 py-2 flex items-center gap-3 border border-primary/20 shadow-glow-sm"
+      >
+        <div className="p-1.5 rounded-full bg-primary/10 text-primary">
+          <Zap className="w-4 h-4" />
+        </div>
+        <div>
+          <p className="font-display text-xs font-bold text-primary">3+ Years</p>
+          <p className="font-mono text-[10px] text-slate-400 uppercase tracking-tighter">Experience</p>
+        </div>
+      </motion.div>
+
+      {/* 6. Refined floating badge: projects (Updated to use Lucide React Rocket icon) */}
+      <motion.div
+        animate={{ y: [0, 12, 0] }} 
+        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
+        className="absolute -top-4 -right-6 glass-card px-3 py-2 flex items-center gap-3 border border-primary/20 shadow-glow-sm"
+      >
+        <div className="p-1.5 rounded-full bg-primary/10 text-primary">
+          <Rocket className="w-4 h-4" />
+        </div>
+        <div>
+          <p className="font-display text-xs font-bold text-primary">20+</p>
+          <p className="font-mono text-[10px] text-slate-400 uppercase tracking-tighter">Projects</p>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
+// --- END: New Animated Profile Picture Component ---
+
+const Hero = () => {
+  const { isDark } = useTheme();
+
+  return (
+    <section
+      id="hero"
+      className={`relative min-h-screen flex items-center justify-center overflow-hidden ${
+        isDark ? "bg-[#0f0f1a]" : "bg-light-surface"
+      }`}
+    >
+      {/* Background layers */}
+      <GridLines />
+      <HeroGlow />
+      <FloatingOrbs />
+
+      {/* Scan line overlay */}
+      <div className="absolute inset-0 scan-line pointer-events-none opacity-20" />
+
+      {/* Corner decorations */}
+      <div className="absolute top-20 left-8 w-16 h-16 border-l-2 border-t-2 border-primary/30 pointer-events-none" />
+      <div className="absolute top-20 right-8 w-16 h-16 border-r-2 border-t-2 border-primary/30 pointer-events-none" />
+      <div className="absolute bottom-20 left-8 w-16 h-16 border-l-2 border-b-2 border-primary/30 pointer-events-none" />
+      <div className="absolute bottom-20 right-8 w-16 h-16 border-r-2 border-b-2 border-primary/30 pointer-events-none" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-12 flex flex-col lg:flex-row items-center gap-12">
+        {/* Left: Text content */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex-1 text-center lg:text-left"
+        >
+          {/* Greeting badge */}
+          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 mb-6">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(0,255,136,0.8)]" />
+            <span
+              className="font-mono text-sm tracking-widest uppercase px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary"
+            >
+              Available for hire
+            </span>
+          </motion.div>
+
+          {/* Name */}
+          <motion.h1
+            variants={itemVariants}
+            className={`font-display font-black leading-tight mb-4 ${
+              isDark ? "text-white" : "text-slate-900"
+            }`}
+            style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
+          >
+            Hi, I'm{" "}
+            <span className="gradient-text block sm:inline">
+              {personalInfo.name}
+            </span>
+          </motion.h1>
+
+          {/* Typing animation */}
+          <motion.div
+            variants={itemVariants}
+            className="font-body text-xl md:text-2xl mb-6 h-10 flex items-center justify-center lg:justify-start gap-2"
+          >
+            <span className={isDark ? "text-slate-400" : "text-slate-500"}>I build</span>{" "}
+            <TypeAnimation
+              sequence={personalInfo.roles.flatMap((role) => [role, 2000])}
+              wrapper="span"
+              speed={50}
+              deletionSpeed={70}
+              repeat={Infinity}
+              className="text-primary font-semibold"
+            />
+          </motion.div>
+
+          {/* Short bio */}
+          <motion.p
+            variants={itemVariants}
+            className={`font-body text-base md:text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0 ${
+              isDark ? "text-slate-400" : "text-slate-500"
+            }`}
+          >
+            {personalInfo.shortBio} Full Stack developer specializing in the{" "}
+            <span className="text-primary font-semibold">MERN stack</span>,
+            passionate about building impactful digital experiences.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-wrap gap-4 justify-center lg:justify-start mb-8"
+          >
+            <motion.a
+              href="#projects"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary flex items-center gap-2 group"
+            >
+              View My Work <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </motion.a>
+
+            <motion.a
+              href={personalInfo.resumeLink}
+              download
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-outline flex items-center gap-2"
+            >
+              <Download className="w-4 h-4" />
+              Download CV
+            </motion.a>
+          </motion.div>
+
+          {/* Social links */}
+          <motion.div variants={itemVariants} className="flex gap-3 justify-center lg:justify-start">
+            {socialLinks.map(({ href, Icon, label }) => (
+              <motion.a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.15, y: -3, color: "#00ff88" }}
+                whileTap={{ scale: 0.9 }}
+                aria-label={label}
+                className={`w-10 h-10 rounded-lg flex items-center justify-center border transition-all duration-200 ${
+                  isDark
+                    ? "border-white/10 text-slate-400 hover:border-primary/40 hover:bg-primary/5"
+                    : "border-slate-200 text-slate-500 hover:text-primary"
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+              </motion.a>
+            ))}
+          </motion.div>
+        </motion.div>
+
+        {/* Right: Avatar section (REPLACED with AnimatedProfilePicture) */}
+        <AnimatedProfilePicture isDark={isDark} />
+      </div>
+
+      {/* Mouse-style scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-6 h-10 rounded-full border-2 border-primary/30 flex items-start justify-center pt-1"
+        >
+          <div className="w-1 h-3 rounded-full bg-primary/70" />
+        </motion.div>
+        <span className="font-mono text-[10px] text-slate-500 tracking-[0.3em] uppercase">Scroll</span>
+      </motion.div>
+    </section>
+  );
+};
+
+export default Hero;

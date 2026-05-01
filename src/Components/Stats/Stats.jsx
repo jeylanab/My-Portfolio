@@ -1,65 +1,47 @@
-import React, { useEffect, useState } from "react";
-import CountUp from "react-countup";
-import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import CountUp from "react-countup";
+import { statsData } from "../../constants/index";
+import { useTheme } from "../../Utils/ThemeContext";
 
 const Stats = () => {
-  const { ref, inView } = useInView({ threshold: 0.5 });
-  const [hasAnimated, setHasAnimated] = useState(false);
-
-  useEffect(() => {
-    if (inView && !hasAnimated) {
-      setHasAnimated(true);
-    }
-  }, [inView, hasAnimated]);
-
-  const stats = [
-    { value: 3.5, suffix: "k", label: "GitHub Commits" },
-    { value: 22, label: "Client Projects Delivered" },
-    { value: 6, label: "SaaS Dashboards Designed" },
-    { value: 12, label: "Technologies Mastered" },
-  ];
+  const { isDark } = useTheme();
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
 
   return (
-    <section ref={ref} className="relative py-16 transition-colors">
-      {/* Soft Glow Background */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="absolute inset-0 bg-gradient-to-br from-green-200/10 to-blue-300/10 blur-2xl z-0"
+    <section ref={ref} className={`py-16 relative overflow-hidden ${isDark ? "bg-dark-surface" : "bg-light-surface"}`}>
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(0,255,136,0.04), transparent)",
+        }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-20 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10 text-center">
-        {stats.map((stat, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={hasAnimated ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{
-              duration: 0.6,
-              delay: index * 0.2,
-              ease: "easeOut",
-            }}
-            className="bg-white/80 dark:bg-[#0a1a08]/80 border border-gray-200 dark:border-[#1d3a1a] backdrop-blur-xl rounded-2xl px-6 py-8 shadow-xl hover:scale-105 transition-all"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-[#62e847] font-poppins">
-              {hasAnimated ? (
-                <CountUp
-                  end={stat.value}
-                  decimals={stat.suffix ? 1 : 0}
-                  duration={2}
-                />
-              ) : (
-                "0"
-              )}
-              {stat.suffix || ""}+
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-green-100 mt-2 tracking-wide">
-              {stat.label}
-            </p>
-          </motion.div>
-        ))}
+      <div className="relative z-10 max-w-5xl mx-auto px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {statsData.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ scale: 1.05, y: -4 }}
+              className={`glass-card p-6 text-center border ${isDark ? "border-dark-border hover:border-primary/30" : "border-light-border hover:border-primary/30"} transition-all duration-300`}
+            >
+              <p className="font-display text-3xl md:text-4xl font-black text-primary mb-1">
+                {inView ? (
+                  <CountUp end={stat.value} duration={2.5} delay={i * 0.1} />
+                ) : (
+                  "0"
+                )}
+                <span>{stat.suffix}</span>
+              </p>
+              <p className={`font-body text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
