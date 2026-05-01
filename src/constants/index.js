@@ -9,9 +9,8 @@ export const personalInfo = {
   name: "Jeylan A.",
   tagline: "Full Stack Developer",
 roles: [
-  "Software",
   "Web Apps",
-  "Mobile Apps",
+  "Digital Solutions",
   "UI/UX",
   "Business Tools",
   "Scalable Systems",
@@ -20,10 +19,10 @@ roles: [
   phone: "+251924423956",
   location: "Addis Ababa, Ethiopia",
   bio: `Motivated and adaptable Computer Science graduate with 2+ years of hands-on experience in full-stack web development, UI/UX design, and modern application architecture. 
-  I specialize in building scalable, responsive applications using the MERN stack and modern frontend frameworks like React and Vue. 
+  I specialize in building scalable, responsive applications using the Modern Tools and frontend frameworks like React and Vue. 
   I focus on clean code, performance, and user-centered design to deliver real-world solutions.`,
   shortBio: "Building scalable digital products with modern web technologies.",
-  resumeLink: "/resume.pdf",
+  resumeLink: "",
   profileImage: "../../Public/pp.png",
   socialLinks: {
     github: "https://github.com/yourusername",
@@ -142,63 +141,88 @@ export const skillsData = {
 };
 
 // ─────────────────────────────────────────────
-// 📂 PROJECTS
+// 📂 UPDATED PROJECTS (6 RECENT)
 // ─────────────────────────────────────────────
 export const projectsData = [
   {
     id: 1,
-    title: "Roofly — Real Estate Platform",
+    title: "Olens Store — Digital Retail",
     description:
-      "A scalable real estate web application for property renting and selling with authentication and map-based search.",
-    image: "/assets/images/projects/roofly.png",
-    techStack: ["Vue", "Nuxt.js", "MongoDB", "Firebase", "Google Maps API"],
-    liveLink: "",
-    githubLink: "",
+      "A high-performance digital storefront developed for the Addis Ababa market, focusing on seamless product discovery and a robust MERN-based infrastructure.",
+    image: "/assets/images/projects/olenstore.png",
+    techStack: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
+    liveLink: "https://olenstore.vercel.app/",
+    githubLink: "https://github.com/jeylanab/olens-store",
     featured: true,
     category: "Full Stack",
     year: "2025",
   },
   {
     id: 2,
-    title: "On The Roof — Business Platform",
+    title: "Taily-Pets — Pet Care Platform",
     description:
-      "Client management and order system with Stripe integration, admin dashboard, and automated email workflows.",
-    image: "/assets/images/projects/ontheroof.png",
-    techStack: ["React", "Node.js", "Stripe", "Email Automation"],
-    liveLink: "https://on-the-roof.vercel.app/",
-    githubLink: "",
+      "A community-focused pet care platform with intuitive features for pet enthusiasts, built using modern frontend technologies and real-time backend integration.",
+    image: "/assets/images/projects/tailypets.png",
+    techStack: ["React", "Firebase", "TypeScript", "Framer Motion"],
+    liveLink: "https://taily-pets.vercel.app/",
+    githubLink: "https://github.com/jeylanab/Taily-Pets",
     featured: true,
     category: "Full Stack",
     year: "2025",
   },
   {
     id: 3,
-    title: "OlenStore — E-commerce Platform",
+    title: "Theo Rallis — Success Consulting",
     description:
-      "Modern digital e-commerce store with product management and responsive UI.",
-    image: "/assets/images/projects/olenstore.png",
-    techStack: ["React", "Node.js", "MongoDB"],
-    liveLink: "https://olenstore.vercel.app/",
-    githubLink: "",
+      "A high-conversion professional platform created for a Cyprus-based consultant, emphasizing premium typography and elegant UI for relationship success services.",
+    image: "/assets/images/projects/theorallis.png",
+    techStack: ["React", "TypeScript", "Responsive Design", "CSS3"],
+    liveLink: "https://theo-rallis.vercel.app/",
+    githubLink: "https://github.com/jeylanab/Theo-Rallis",
+    featured: true,
+    category: "Frontend",
+    year: "2025",
+  },
+  {
+    id: 4,
+    title: "AstroClean UK — Booking System",
+    description:
+      "A streamlined booking management system for a UK-based service business, featuring complex data property handling and a responsive user interface.",
+    image: "/assets/images/projects/astroclean.png",
+    techStack: ["React", "TypeScript", "Node.js", "Cloud DevOps"],
+    liveLink: "https://astrocleanuk.vercel.app/",
+    githubLink: "https://github.com/jeylanab/astroClean",
     featured: true,
     category: "Full Stack",
     year: "2025",
   },
   {
-    id: 4,
-    title: "Flora Restaurant App",
+    id: 5,
+    title: "One-Frame — Quote Platform",
     description:
-      "Restaurant web app with dynamic UI and modern ordering interface.",
-    image: "/assets/images/projects/flora.png",
-    techStack: ["React", "UI/UX Design"],
-    liveLink: "https://flora-virid.vercel.app/",
-    githubLink: "",
-    featured: false,
+      "An interactive quote generation and summary platform designed for precision and clarity in service-based business transactions.",
+    image: "/assets/images/projects/oneframe.png",
+    techStack: ["React", "Node.js", "Framer Motion", "UI/UX"],
+    liveLink: "https://one-frame.vercel.app/",
+    githubLink: "https://github.com/jeylanab/ONE-FRAME",
+    featured: true,
+    category: "Frontend",
+    year: "2025",
+  },
+  {
+    id: 6,
+    title: "Olens Studio — Web Agency",
+    description:
+      "A cinematic web agency portfolio that showcases creative storytelling through advanced animations and modern design architecture.",
+    image: "/assets/images/projects/olensstudio.png",
+    techStack: ["Next.js", "Framer Motion", "Tailwind CSS", "UI/UX"],
+    liveLink: "https://olens-ruddy.vercel.app/",
+    githubLink: "https://github.com/jeylanab/Olens",
+    featured: true,
     category: "Frontend",
     year: "2025",
   },
 ];
-
 // ─────────────────────────────────────────────
 // 🏆 ACHIEVEMENTS
 // ─────────────────────────────────────────────

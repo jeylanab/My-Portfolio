@@ -16,7 +16,12 @@ function App() {
   const { isDark } = useTheme();
 
   return (
-    <div className={`${isDark ? "dark" : "light"} ${isDark ? "bg-dark text-slate-200" : "bg-light-border text-slate-900"} min-h-screen transition-colors duration-300`}>
+    <div 
+      className={`
+        ${isDark ? "dark bg-[#0f172a] text-slate-200" : "bg-slate-50 text-slate-900"} 
+        min-h-screen transition-colors duration-300 flex flex-col
+      `}
+    >
       {/* Custom cursor (hidden on touch devices) */}
       <div className="hidden md:block">
         <CustomCursor />
@@ -26,7 +31,7 @@ function App() {
       <ScrollProgress />
 
       {/* Loader */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {loading && <Loader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
 
@@ -34,10 +39,11 @@ function App() {
       {!loading && (
         <>
           <Navbar />
-          <Home />
+          <main className="flex-grow">
+            <Home />
+          </main>
           <Footer />
           <BackToTop />
-          
         </>
       )}
     </div>

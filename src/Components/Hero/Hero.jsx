@@ -4,6 +4,7 @@ import { personalInfo } from "../../constants/index";
 import { Download, ArrowRight, Github, Linkedin, Twitter, Zap, Rocket } from "lucide-react";
 import { useTheme } from "../../Utils/ThemeContext";
 import pp from "../../asset/ppp.png";
+import cv from "../../asset/MyCv.pdf";
 
 // Animated floating particles
 const FloatingOrbs = () => (
@@ -250,7 +251,7 @@ const Hero = () => {
             }`}
           >
             {personalInfo.shortBio} Full Stack developer specializing in the{" "}
-            <span className="text-primary font-semibold">MERN stack</span>,
+            <span className="text-primary font-semibold">Frontend Engineering</span>,
             passionate about building impactful digital experiences.
           </motion.p>
 
@@ -273,7 +274,7 @@ const Hero = () => {
             </motion.a>
 
             <motion.a
-              href={personalInfo.resumeLink}
+              href={cv}
               download
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
