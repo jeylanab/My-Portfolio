@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Sun, Menu, X, Code2 } from "lucide-react";
 import { useTheme } from "../../Utils/ThemeContext";
+import logo from "../../asset/logo.svg";
 
 const navLinks = [
   { href: "#hero", label: "Home" },
@@ -72,10 +73,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             className="font-display text-xl font-bold flex items-center gap-2"
           >
-            <Code2 className="w-6 h-6 text-primary" />
-            <span className={isDark ? "text-white" : "text-dark"}>
-              &lt;<span className="text-primary">DB</span>/&gt;
-            </span>
+            <img src={logo} alt="Logo" />
           </motion.a>
 
           {/* Desktop Nav */}
